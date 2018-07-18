@@ -1,14 +1,26 @@
-var http = require('http');
+var express = require('express');
 
-var server = http.createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Salut tout le monde !');
+var app = express();
+
+app.get('/', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain');
+    res.send('Vous êtes à l\'accueil, que puis-je pour vous ?');
 });
 
-server.on('close', function() { // On écoute l'évènement close
-    console.log('Bye bye !');
-})
+app.get('/sous-sol', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain');
+    res.send('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
+});
 
-server.listen(8080); // Démarre le serveur
+app.get('/etage/:etagenum/chambre', function(req, res) {
+    res.render('chambre.ejs', {etage: req.params.etagenum});
+});
 
-server.close(); // Arrête le serveur. Déclenche l'évènement close
+app.use(function(req, res, next){
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(404).send('Page introuvable !');
+});
+
+
+
+app.listen(8080);
