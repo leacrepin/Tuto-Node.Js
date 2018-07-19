@@ -3,27 +3,33 @@
     <head>
         <meta charset="utf-8" />
         <title>Chat</title>
-        <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
-        <style>
-            #zone_chat strong {
-                color: white;
-                background-color: black;
-                padding: 2px;
-            }
-        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_blue-blue.min.css" /> 
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+        <link rel="stylesheet" href="./style.css"/>
     </head>
  
     <body>
+
         <h1>Chat</h1>
 
         <form action="/" method="post" id="formulaire_chat">
-            <input type="text" name="message" id="message" placeholder="Votre message..." size="50" autofocus />
-            <input type="submit" id="envoi_message" value="Envoyer" />
+
+            <section id="zone_chat">
+            
+            </section>
+
+            <div class="ajout">
+                <div class="ajout1">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"></div>
+                        <input class="mdl-textfield__input" type="text" name="message" id="message" placeholder="Votre message..." size="50" required autofocus />
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="mdl-button mdl-button--raised mdl-button--colored" id="envoi_message" value="Envoyer" />
         </form>
 
-        <section id="zone_chat">
-            
-        </section>
+        
 
 
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -45,7 +51,7 @@
 
             // Quand un nouveau client se connecte, on affiche l'information
             socket.on('nouveau_client', function(pseudo) {
-                $('#zone_chat').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+                $('#zone_chat').append('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
             })
 
             // Lorsqu'on envoie le formulaire, on transmet le message et on l'affiche sur la page
@@ -59,7 +65,7 @@
             
             // Ajoute un message dans la page
             function insereMessage(pseudo, message) {
-                $('#zone_chat').prepend('<p><strong>' + pseudo + '</strong> ' + message + '</p>');
+                $('#zone_chat').append('<p><strong>' + pseudo + '</strong> ' + message + '</p>');
             }
         </script>
     </body>

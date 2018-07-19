@@ -1,8 +1,12 @@
-var app = require('express')(),
+var express = require('express');
+var app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     ent = require('ent'), // Permet de bloquer les caractères HTML (sécurité équivalente à htmlentities en PHP)
     fs = require('fs');
+
+//Chargement du dossier statique
+app.use(express.static(__dirname + '/public'));
 
 // Chargement de la page index.html
 app.get('/', function (req, res) {
